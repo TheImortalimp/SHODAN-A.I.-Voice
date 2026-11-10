@@ -1,7 +1,7 @@
 {
   "name": "shodan-ai-voice",
   "private": true,
-  "version": "5.0.0",
+  "version": "0.0.1",
   "description": "Fan-made SHODAN voice interface: local Piper Amy TTS, CORTEX random transmission generator, viseme lip sync, WHITE ICE hardening and a WebView2 desktop host.",
   "type": "module",
   "scripts": {

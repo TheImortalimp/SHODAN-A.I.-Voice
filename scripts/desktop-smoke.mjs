@@ -80,6 +80,20 @@ async function probeLocks(hasExited) {
   };
 }
 
+// WebView2 can keep the profile open for a while after the app exits, so keep trying for a minute.
+async function removeScratch() {
+  for (let attempt = 0; attempt < 12; attempt++) {
+    try {
+      rmSync(work, { recursive: true, force: true });
+      return true;
+    } catch (error) {
+      if (!['EBUSY', 'EPERM', 'EACCES', 'ENOTEMPTY'].includes(error.code)) throw error;
+      await sleep(5000);
+    }
+  }
+  return false;
+}
+
 let failed = false;
 try {
   console.log('SHODAN desktop smoke test');
@@ -115,8 +129,8 @@ try {
 } finally {
   if (failed || keep) {
     console.log(`Scratch files kept for inspection (reports and a mid-speech screenshot): ${work}`);
-  } else {
-    rmSync(work, { recursive: true, force: true, maxRetries: 10, retryDelay: 500 });
+  } else if (!(await removeScratch())) {
+    console.log(`The scratch folder is still in use and was not removed; delete it later: ${work}`);
   }
 }
 process.exit(failed ? 1 : 0);

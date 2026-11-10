@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <!-- .NET 8 support ends in November 2026; let the exe run on any newer installed runtime. -->
+    <RollForward>Major</RollForward>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,12 +12,13 @@
     <RootNamespace>ShodanDesktop</RootNamespace>
     <ApplicationIcon>shodan.ico</ApplicationIcon>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-    <Version>5.0.0</Version>
+    <Version>0.0.1</Version>
     <Product>SHODAN Voice Interface</Product>
     <Description>WebView2 desktop host for the SHODAN Voice Interface, guarded by WHITE ICE file integrity and Microsoft Defender (AMSI) scanning.</Description>
     <Copyright>Unofficial fan project. System Shock and SHODAN belong to their respective owners.</Copyright>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
     <DistDir>$(MSBuildThisFileDirectory)..\dist\</DistDir>
   </PropertyGroup>
 

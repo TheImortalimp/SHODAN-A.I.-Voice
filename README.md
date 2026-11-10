@@ -1,10 +1,55 @@
 # SHODAN Voice Interface
 
+![SHODAN's face, rendered by the SHODAN Voice Interface](./public/social-preview.png)
+
+[![Latest release](https://img.shields.io/github/v/release/TheImortalimp/SHODAN-A.I.-Voice?label=release)](https://github.com/TheImortalimp/SHODAN-A.I.-Voice/releases/latest)
+[![Licence: CC0 1.0](https://img.shields.io/badge/licence-CC0%201.0-informational)](./LICENSE)
+[![Status: archived](https://img.shields.io/badge/status-archived-lightgrey)](#status)
+
 An unofficial System Shock fan project: a SHODAN voice terminal with in-browser neural speech, a lip-synced and glitching avatar, an AI handle that writes her lines so she can stay unpredictable, and WHITE ICE defences. It runs as a static website or as a Windows desktop app built on WebView2.
 
-Live site: <https://www.imortalimp.nl/006/shodan/shodan.html>
+- **Try it:** <https://www.imortalimp.nl/006/shodan/shodan.html>
+- **Download it:** [version 0.0.1](https://github.com/TheImortalimp/SHODAN-A.I.-Voice/releases/tag/v0.0.1), for Windows or as a website build
+- **Read the manual:** [documentation](./docs/README.md)
 
 > System Shock and SHODAN belong to their respective owners. This project is not affiliated with or endorsed by them. CORTEX writes new lines in the spirit of the games instead of reusing game dialogue.
+
+## About
+
+The SHODAN Voice Interface turns text into SHODAN's voice. Type a message, or let her write her own, and she speaks it in a glitching neural voice while her face moves with every syllable. The voice model, the effects, the animation and the line generator all run on your own device, and nothing you type leaves your computer.
+
+![The terminal mid-transmission: the message box and AI handle on the left, the glitching avatar in the centre, and the voice meter, log and status on the right](./docs/images/shodan-interface.png)
+
+It is a fan project by [@TheImortalimp](https://github.com/TheImortalimp).
+
+## Status
+
+Version 0.0.1 is the first and final release from this repository. The repository is archived and read-only, so it does not accept issues or pull requests. To continue the work, fork it; see [Development](./docs/development.md).
+
+## Download
+
+Get these files from the [v0.0.1 release](https://github.com/TheImortalimp/SHODAN-A.I.-Voice/releases/tag/v0.0.1):
+
+| File | What it is |
+| --- | --- |
+| `SHODAN-Voice-v0.0.1-win-x64.zip` | The Windows desktop app. Extract it and run `ShodanVoice.exe`. See [Desktop app](./docs/desktop.md). |
+| `SHODAN-Voice-v0.0.1-web.zip` | The website, ready to upload to your own web server. See [Deploying the website](./docs/deployment.md). |
+| `SHA256SUMS.txt` | SHA-256 checksums for both zips. |
+
+The desktop app needs Windows 10 or 11 (x64), the .NET Desktop Runtime 8 or later, and the Microsoft Edge WebView2 Runtime. It is not code-signed, so [verify the checksum](./docs/desktop.md#verify-the-download) before you run it. Windows SmartScreen may still ask you to confirm.
+
+## Documentation
+
+| Guide | What it covers |
+| --- | --- |
+| [User guide](./docs/user-guide.md) | Every control on the terminal, keyboard shortcuts, the floating window, and troubleshooting. |
+| [AI handle and CORTEX](./docs/ai-handle.md) | How SHODAN writes her own lines, converses, reacts and interjects; connecting a local LLM; scripting her with `window.SHODAN`. |
+| [Configuration](./docs/configuration.md) | `shodan.json` defaults, the `monologues.xml` archive, URL parameters, and what the browser stores. |
+| [WHITE ICE security](./docs/white-ice.md) | How the web page and the desktop app are hardened, and the limits of that protection. |
+| [Desktop app](./docs/desktop.md) | Installing, running, verifying and troubleshooting the WebView2 app for Windows. |
+| [Deploying the website](./docs/deployment.md) | Hosting the web build on your own server with the right MIME types and headers. |
+| [Development](./docs/development.md) | Building from source, the architecture, the tests, and the release process. |
+| [Changelog](./CHANGELOG.md) | What changed in each release. |
 
 ## Features
 
@@ -107,11 +152,11 @@ In the desktop app, WHITE ICE also hooks into Windows:
 
 ## Development
 
-Requirements: Node.js 20 or later.
+You need Node.js 20.19 or later.
 
 ```sh
-npm install
-npm run dev       # Vite dev server (no CSP in dev mode; HMR needs inline styles)
+npm ci
+npm run dev       # development server (no CSP in dev mode; hot reload needs inline styles)
 npm test          # unit tests: CORTEX, AI handle, lip sync, LLM link, WHITE ICE, build output
 npm run build     # production build in dist/ (CSP, integrity manifest, readable sources)
 npm run preview   # serve dist/ on http://localhost:4173/shodan.html
@@ -119,20 +164,15 @@ npm run preview   # serve dist/ on http://localhost:4173/shodan.html
 
 On Windows PowerShell, if script execution policy blocks `npm`, run `npm.cmd` instead of changing the policy.
 
+[Development](./docs/development.md) explains the architecture, the content rules for CORTEX, the tests and the release process.
+
 ### Deploying the website
 
-Upload the **contents** of `dist/` to the site folder (currently `/006/shodan/`), keeping the folder structure. This includes the `voice-packs/`, `piper/`, `onnxruntime-web/` and `vendor/` folders.
-
-- Serve `.wasm` files as `application/wasm`.
-- `white-ice.manifest.json` is only used by the desktop build, so uploading it is optional.
-- The page carries its CSP in a `<meta>` tag. If your host lets you set response headers, also send the `csp` and `headers` values from `dist/white-ice.manifest.json`, which add `frame-ancestors 'none'` and the other security headers.
-- Open the page over HTTP or HTTPS, not from disk, so that workers, audio and WebAssembly work.
-
-The **OPEN JAVASCRIPT SOURCE** link serves the readable modules from `dist/source/`.
+Upload the **contents** of `dist/`, or of the release's web zip, to a folder on your web server, keeping the folder structure. Serve it over HTTPS, and serve `.wasm` files as `application/wasm`. [Deploying the website](./docs/deployment.md) lists the recommended security headers, with examples for Apache, nginx and Netlify.
 
 ## Desktop app (WebView2)
 
-Requirements: Windows 10 or 11 (x64), the [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0), and the [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which is preinstalled on Windows 11. Building also needs the .NET 8 SDK.
+Requirements: Windows 10 or 11 (x64), the [.NET Desktop Runtime](https://dotnet.microsoft.com/download/dotnet) 8 or later, and the [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which is preinstalled on Windows 11. The app targets .NET 8 and also runs on newer versions, such as .NET 10. Building it needs the .NET SDK 8 or later.
 
 ```sh
 npm run desktop:publish   # web build + desktop/publish/ShodanVoice.exe (with its app/ folder)
@@ -142,23 +182,12 @@ npm run desktop:smoke     # end-to-end test of the published app (add -- --keep 
 To use it, run `desktop/publish/ShodanVoice.exe`; to distribute it, ship the whole `desktop/publish/` folder.
 
 - **Tray menu:** AI transmit, Generate input, Stop transmission, Toggle autonomous transmissions, Float on top, Show SHODAN, Exit.
-- **Float:** the FLOAT button, or the tray menu, turns SHODAN into a compact always-on-top window in the corner of the screen.
+- **Float:** the FLOAT button, or the tray menu, turns SHODAN into a compact always-on-top window.
 - **Keys:** F11 toggles fullscreen and Esc leaves it.
 - **Data:** browser data is kept in `%LOCALAPPDATA%\ShodanVoice\WebView2`.
-- **Command line:**
-  - `--smoke-test` runs the self-test and exits;
-  - `--smoke-out <file>` writes its JSON report;
-  - `--user-data <folder>` overrides the browser data folder.
+- **Self-test:** `ShodanVoice.exe --smoke-test` checks integrity, Defender, the security policy and a full transmission with lip sync, then exits.
 
-The smoke test runs on a scratch copy of the publish folder and checks:
-
-- integrity, AMSI, SmartScreen and CSP status;
-- that unlisted files are refused, even when they exist on disk;
-- a complete Amy transmission with live lip sync;
-- that served files cannot be written, deleted or renamed while the app runs;
-- that a tampered build is refused with a breach report naming the changed file.
-
-The exe is not code-signed. Windows SmartScreen may warn about a downloaded copy until it is signed with a code-signing certificate.
+[Desktop app](./docs/desktop.md) covers installation, verifying a download, the command line, and troubleshooting.
 
 ## Project layout
 
@@ -173,8 +202,10 @@ The exe is not code-signed. Windows SmartScreen may warn about a downloaded copy
 | `public/` | Voice pack, WebAssembly runtimes, fallback voice, monologues, icons, config (`shodan.json`) |
 | `tools/vite-plugins.js` | Build plugins: embedded avatar, monologue snapshot, CSP, readable sources, integrity manifest |
 | `test/` | `node --test` unit tests |
-| `desktop/` | WebView2 desktop host (C#, .NET 8 WinForms) |
+| `desktop/` | WebView2 desktop host (C#, .NET 8 WinForms); see [desktop/README.md](./desktop/README.md) |
 | `scripts/desktop-smoke.mjs` | Desktop end-to-end smoke test |
+| `docs/` | The [documentation](./docs/README.md) |
+| `CHANGELOG.md` | Release history |
 | `shodan-encoded-metadata/` | The earlier upload, archived ([ARCHIVED.md](./shodan-encoded-metadata/ARCHIVED.md)) |
 
 ## Licences and attribution
@@ -186,3 +217,14 @@ The original project code is dedicated to the public domain under [CC0 1.0](./LI
 - the SoundTouch worklet is MPL-2.0.
 
 Every build also contains `THIRD_PARTY_NOTICES.txt`, `LICENSE.txt`, `licenses/GPL-3.0.txt` and `voice-packs/amy/`. Keep them when you redistribute the app.
+
+## Credits
+
+- **Author:** [@TheImortalimp](https://github.com/TheImortalimp).
+- **Voice:** the Piper Amy medium voice, from the [MycroftAI Mimic 3 voices](https://github.com/MycroftAI/mimic3-voices) dataset.
+- **Speech engine:** [Piper](https://github.com/rhasspy/piper) and [piper-phonemize](https://github.com/rhasspy/piper-phonemize) by Michael Hansen, [eSpeak NG](https://github.com/espeak-ng/espeak-ng), [ONNX Runtime](https://github.com/microsoft/onnxruntime) by Microsoft, and [piper-tts-web](https://github.com/Mintplex-Labs/piper-tts-web) by Mintplex Labs.
+- **Audio and fallback voice:** SoundTouchJS and meSpeak.js.
+- **Desktop:** [Microsoft Edge WebView2](https://developer.microsoft.com/microsoft-edge/webview2/).
+- **Inspiration:** SHODAN, from *System Shock* (1994) and *System Shock 2* (1999).
+
+Full credits and licence texts are in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).

@@ -28,7 +28,7 @@ Paths are relative to `public/` in the repository and to the root of `dist/` in 
 | Microsoft.Web.WebView2 SDK | 1.0.4314.35 | Desktop build only (`desktop/publish/`):<br>• `Microsoft.Web.WebView2.Core.dll`<br>• `Microsoft.Web.WebView2.WinForms.dll`<br>• `WebView2Loader.dll` | Microsoft BSD-style licence |
 | Vite | 8 | Nothing; build tool only | MIT |
 
-The desktop app is published framework-dependent: it uses the separately installed .NET 8 Desktop Runtime and Microsoft Edge WebView2 Runtime and does not redistribute them.
+The desktop app is published framework-dependent: it uses the separately installed .NET Desktop Runtime (version 8 or later) and Microsoft Edge WebView2 Runtime and does not redistribute them.
 
 ## Piper Amy US English medium voice model
 
