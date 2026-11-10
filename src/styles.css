@@ -1,0 +1,214 @@
+:root {color-scheme:dark; --bg:#070d0b; --panel:#0b1511; --line:#263b2d; --muted:#718678; --green:#b7f76a; --lime:#d0ff7d; --white:#d9e7d9; --danger:#dc9c64; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif}
+* {box-sizing:border-box}
+body {background:var(--bg); color:var(--white); min-height:100vh; margin:0}
+body:before {content:""; pointer-events:none; z-index:20; opacity:.48; background:repeating-linear-gradient(0deg,#0000 0 3px,#00000017 4px); position:fixed; inset:0}
+button,select,textarea,input {font:inherit}
+button {cursor:pointer}
+.shell {max-width:1600px; margin:auto; padding:0 38px}
+.topbar {border-bottom:1px solid var(--line); justify-content:space-between; align-items:center; gap:20px; height:84px; display:flex}
+.brand {align-items:center; gap:13px; display:flex}
+.brand-mark {width:33px; height:33px; color:var(--green); border:1px solid #91c85a; place-items:center; font-size:19px; display:grid; transform:rotate(45deg)}
+.brand-mark span {transform:rotate(-45deg)}
+.brand-name {letter-spacing:.17em; font-size:17px; font-weight:750}
+.brand-sub,.mono {font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.brand-sub {color:#667d69; letter-spacing:.19em; margin-top:3px; font-size:9px}
+.top-right {letter-spacing:.14em; color:#7b9380; align-items:center; gap:24px; font-size:10px; display:flex}
+.status-dot {background:#b6f46b; border-radius:50%; width:6px; height:6px; margin-right:8px; display:inline-block; box-shadow:0 0 10px #b6f46b}
+.tag {color:#b4d9a2; border:1px solid #37503b; padding:9px 11px}
+.intro {justify-content:space-between; align-items:end; gap:20px; padding:33px 0 25px; display:flex}
+.eyebrow {letter-spacing:.19em; color:#8db47c; font:10px ui-monospace,monospace}
+.intro h1 {letter-spacing:-.035em; margin:10px 0 0; font-size:27px; font-weight:550; line-height:1}
+.intro h1 span {color:#8ea092; font-weight:350}
+.intro-note {color:#65766b; letter-spacing:.08em; text-align:right; font:10px/1.7 ui-monospace,monospace}
+.workspace {border:1px solid var(--line); background:#0a120f; grid-template-columns:minmax(270px,1fr) minmax(360px,1.27fr) minmax(270px,.88fr); min-height:580px; display:grid}
+.col {min-width:0; padding:22px}
+.col+.col {border-left:1px solid var(--line)}
+.section-head {letter-spacing:.13em; color:#8ca193; justify-content:space-between; align-items:center; gap:8px; font:10px ui-monospace,monospace; display:flex}
+.section-head strong {color:#d9e8d8; font-size:10px; font-weight:500}
+.tiny-square {background:var(--green); width:7px; height:7px; margin-right:8px; display:inline-block}
+.input-panel {margin-top:27px}
+.field-label {color:#bdd3bd; letter-spacing:.12em; justify-content:space-between; align-items:center; margin-bottom:11px; font:10px ui-monospace,monospace; display:flex}
+.text-wrap {background:#0a120e; border:1px solid #354b39; position:relative}
+.text-wrap:focus-within {border-color:#a1d766}
+textarea {color:#d4e6d2; resize:vertical; background:0 0; border:0; outline:0; width:100%; height:210px; padding:17px; font-size:14px; line-height:1.65; display:block}
+textarea::placeholder {color:#53695a}
+.text-foot {color:#728b76; border-top:1px solid #26372b; justify-content:space-between; align-items:center; padding:10px 13px; font:10px ui-monospace,monospace; display:flex}
+.plain-button {color:#a8d884; letter-spacing:.08em; background:0 0; border:0; padding:3px; font:10px ui-monospace,monospace}
+.plain-button:hover {color:#e0ffbb}
+.actions {gap:8px; margin-top:12px; display:flex}
+.primary,.secondary {letter-spacing:.11em; border:1px solid #0000; padding:14px 13px; font:700 10px ui-monospace,monospace}
+.primary {background:var(--green); color:#10200d; flex:1}
+.primary:hover {background:#d2ff92}
+.secondary {color:#b5d5b1; background:#121f16; border-color:#39513d}
+.secondary:hover {border-color:#a5d77a}
+.secondary:disabled {opacity:.4; cursor:not-allowed}
+.notice {color:#93aa96; min-height:30px; margin:11px 0 0; font:10px/1.5 ui-monospace,monospace}
+.rule {border:0; border-top:1px solid #26392c; margin:24px 0}
+.settings-title {justify-content:space-between; align-items:center; margin-bottom:19px; display:flex}
+.setting {margin-bottom:18px}
+.setting label {color:#a9bda9; letter-spacing:.06em; justify-content:space-between; margin-bottom:9px; font:10px ui-monospace,monospace; display:flex}
+.setting output {color:#b9ef88}
+select {color:#c7dac5; background:#0b1610; border:1px solid #344d39; width:100%; height:39px; padding:0 9px; font:11px ui-monospace,monospace}
+input[type=range] {accent-color:#b5ed79; width:100%; height:4px; margin:4px 0; display:block}
+input[type=checkbox] {accent-color:#a7e86c}
+.auto {color:#a5bba6; align-items:center; gap:9px; font:10px/1.5 ui-monospace,monospace; display:flex}
+.center {background:radial-gradient(at 50% 42%,#13291a 0%,#0a1510 53%,#0a120e 100%); flex-direction:column; display:flex}
+.avatar-top {margin-bottom:18px}
+.avatar-stage {aspect-ratio:1; background:#030906; border:1px solid #2f4c34; width:100%; max-height:520px; position:relative; overflow:hidden}
+.avatar-stage canvas {z-index:1; pointer-events:none; width:100%; height:100%; position:absolute; inset:0}
+.avatar-stage:fullscreen {aspect-ratio:auto; background:#020804; border:0; width:100vw; height:100vh; max-height:none}
+.avatar-stage:fullscreen img {object-fit:contain}
+.avatar-stage img {object-fit:cover; filter:contrast(1.1)saturate(.8); opacity:.9; width:100%; height:100%; display:block}
+.avatar-stage:after {content:""; pointer-events:none; z-index:2; background:repeating-linear-gradient(0deg,#0000 0 3px,#0003 4px),linear-gradient(90deg,#030c0659,#0000 17% 83%,#030c0659); position:absolute; inset:0; box-shadow:inset 0 0 50px #000}
+.avatar-stage.speaking img {animation:.22s steps(2,end) infinite signal}
+.avatar-stage.speaking:before {content:""; z-index:2; background:#beff822b; width:100%; height:4%; animation:2s linear infinite scan; position:absolute; top:0; left:0}
+/* Once the canvas renderer has the portrait, it draws the face (jaw, eyes, glitches) itself. */
+.avatar-stage.canvas-portrait img {opacity:0}
+.avatar-stage.speaking.canvas-portrait img {animation:none}
+.avatar-stage.speaking.canvas-portrait canvas {animation:.22s steps(2,end) infinite signal-canvas}
+.avatar-stage[data-glitch=on].canvas-portrait canvas {filter:contrast(1.18) saturate(1.15)}
+.corner {z-index:3; border-color:#a6e875; width:22px; height:22px; position:absolute}
+.tl {border-top:1px solid; border-left:1px solid; top:10px; left:10px}
+.tr {border-top:1px solid; border-right:1px solid; top:10px; right:10px}
+.bl {border-bottom:1px solid; border-left:1px solid; bottom:10px; left:10px}
+.br {border-bottom:1px solid; border-right:1px solid; bottom:10px; right:10px}
+@keyframes signal {0%,80% {filter:contrast(1.1)saturate(.8); transform:translate(0)}
+85% {filter:contrast(1.45)saturate(1.2); transform:translate(2px,-1px)}
+to {transform:translate(-1px)}
+}
+@keyframes signal-canvas {0%,80% {filter:none}
+85% {filter:contrast(1.28) saturate(1.25) brightness(1.04)}
+to {filter:none}
+}
+@keyframes scan {0% {top:-5%}
+to {top:105%}
+}
+.identity {justify-content:space-between; align-items:flex-end; padding-top:16px; display:flex}
+.identity h2 {letter-spacing:.27em; color:#d3e5cd; margin:0; font-size:30px; font-weight:500}
+.identity p {letter-spacing:.13em; color:#78947c; margin:6px 0 0; font:9px ui-monospace,monospace}
+.online {letter-spacing:.11em; color:#a8dc86; font:9px ui-monospace,monospace}
+.signal-line {color:#76917a; letter-spacing:.1em; border-top:1px solid #2b422f; justify-content:space-between; margin-top:18px; padding-top:13px; font:9px ui-monospace,monospace; display:flex}
+.right h3 {letter-spacing:-.02em; margin:27px 0 8px; font-size:18px; font-weight:500}
+.desc {color:#839889; margin:0; font-size:12px; line-height:1.65}
+.meter-box {background:#0b1610; border:1px solid #2c4231; margin-top:20px; padding:14px}
+.meter-header {letter-spacing:.11em; color:#809984; justify-content:space-between; font:9px ui-monospace,monospace; display:flex}
+.meter-header b {color:#b8ee88; font-weight:400}
+.wave {align-items:center; gap:3px; height:65px; margin-top:13px; display:flex; overflow:hidden}
+.wave i {opacity:.48; background:#9fde71; flex:1; min-width:2px; height:3px; transition:height .1s}
+.wave.active i {opacity:.9}
+.console {margin-top:25px}
+.log {color:#839b86; overflow-wrap:anywhere; border-top:1px solid #26392c; min-height:110px; margin-top:14px; padding-top:12px; font:10px/1.8 ui-monospace,monospace}
+.log div {margin-bottom:5px}
+.log .accent {color:#c0ee9a}
+.log .dim {color:#526d58}
+.log .speaker {color:#9fd77d}
+.meta {border-top:1px solid #26392c; margin-top:14px; padding-top:14px}
+.meta-row {color:#6f8973; justify-content:space-between; gap:15px; font:9px/2.2 ui-monospace,monospace; display:flex}
+.meta-row span:last-child {color:#b0cbb0; text-align:right}
+.meta-row [data-level=ok] {color:#b9ef88}
+.meta-row [data-level=warn] {color:var(--danger)}
+.footer {color:#566d5b; letter-spacing:.1em; justify-content:space-between; gap:20px; padding:18px 0 30px; font:9px/1.7 ui-monospace,monospace; display:flex}
+.footer a {color:#86a783}
+.kbd {color:#a4ba9f}
+.help {color:#718a76; margin:12px 0 0; font:10px/1.6 ui-monospace,monospace}
+.help .kbd {overflow-wrap:anywhere}
+.fullscreen {color:#a6c7a2; letter-spacing:.06em; background:0 0; border:1px solid #3a543e; padding:8px; font:9px ui-monospace,monospace}
+.fullscreen:hover {color:#d0ff98; border-color:#a9dc82}
+/* CORTEX // AI HANDLE */
+.ice-badge {color:#9fe07a; border:1px solid #37503b; padding:9px 11px; white-space:nowrap}
+.ice-badge[data-state=alert] {color:var(--danger); border-color:#6d4a2f}
+.cortex-panel .auto+.help {margin:6px 0 13px}
+.cortex-actions {gap:8px; display:flex}
+.cortex-actions button {flex:1; padding:13px 8px}
+.accent-button {color:#dcffb8; background:#17301c; border-color:#6c9b4a}
+.accent-button:hover {color:#f0ffe0; border-color:#c2ff8a}
+.split-setting {grid-template-columns:1fr 1fr; gap:8px; margin:16px 0 14px; display:grid}
+.split-setting label {display:block; margin:0}
+.split-setting select {margin-top:8px}
+.presence-settings select {margin-top:6px}
+.whiteice-panel .meta {margin-top:12px}
+@media (max-width:1050px) {.shell {padding:0 20px}
+.workspace {grid-template-columns:minmax(260px,1fr) minmax(330px,1.2fr)}
+.right {border-top:1px solid var(--line); grid-column:1/-1; grid-template-columns:1fr 1fr; gap:20px; display:grid; border-left:0!important}
+.right>.section-head {grid-column:1/-1}
+.right h3,.console {margin-top:0}
+}
+@media (max-width:680px) {.shell {padding:0 14px}
+.topbar {height:70px}
+.top-right .tag,.top-right .network {display:none}
+.intro {padding:25px 0 20px}
+.intro-note {display:none}
+.intro h1 {font-size:23px}
+.workspace {flex-direction:column; display:flex}
+.col+.col {border-left:0; border-top:1px solid var(--line)}
+.center {order:-1}
+.right {display:block}
+.right h3 {margin-top:24px}
+.console {margin-top:22px}
+.avatar-stage {max-height:none}
+.footer {flex-direction:column}
+.identity h2 {font-size:25px}
+.split-setting {grid-template-columns:1fr}
+}
+.presence-settings {border-top:1px solid #26392c; margin-top:17px; padding-top:14px}
+.presence-settings summary {color:#c1d9bf; cursor:pointer; letter-spacing:.08em; font:10px ui-monospace,monospace}
+.presence-settings input {color:#d9e8d6; background:#09130d; border:1px solid #37513b; outline:none; width:100%; margin-top:6px; padding:9px; font:11px ui-monospace,monospace}
+.presence-settings input:focus {border-color:#b6ef88}
+.presence-settings label {color:#a5bda4; letter-spacing:.05em; margin-top:12px; font:9px ui-monospace,monospace; display:block}
+.presence-settings .presence-actions {gap:6px; margin-top:11px; display:flex}
+.presence-settings button {flex:1; padding:10px 5px}
+.presence-settings a {color:#a9d593}
+.presence-status {color:#9dbc9f; margin:10px 0; font:10px/1.5 ui-monospace,monospace}
+.ice-dialog {color:#d1e9ce; background:#07100b; border:1px solid #a5d770; width:min(620px,100vw - 32px); max-height:90vh; padding:0; font-family:ui-monospace,monospace; overflow:auto; box-shadow:0 0 70px #6eff7d26}
+.ice-dialog::backdrop {background:#000502e6}
+.ice-panel {isolation:isolate; background:linear-gradient(125deg,#08140def,#080f0bf5),url(/avatar.png) 50% 35%/cover; padding:30px; position:relative}
+.ice-panel:before {content:""; z-index:-1; pointer-events:none; background:repeating-linear-gradient(0deg,#0000 0 4px,#a0ff960a 5px); position:absolute; inset:0}
+.ice-top {letter-spacing:.15em; color:#a3dc82; justify-content:space-between; gap:10px; font-size:10px; display:flex}
+.ice-symbol {color:#c5ff8d; text-shadow:0 0 22px #98ff7b; margin:22px 0 8px; font-size:42px}
+.ice-panel h2 {color:#dcffd0; letter-spacing:.08em; margin:0; font:500 clamp(27px,5vw,42px)/1.1 ui-monospace,monospace}
+.ice-panel h3 {letter-spacing:.12em; color:#e4a88d; margin:14px 0 24px; font:10px ui-monospace,monospace}
+.ice-copy {color:#aec8ad; font-size:12px; line-height:1.7}
+.ice-console {color:#8ba890; background:#07120bc9; border:1px solid #314b33; margin:20px 0; padding:14px; font-size:10px; line-height:1.8}
+.ice-console b {color:#ceffa5; font-weight:400}
+.ice-actions {flex-wrap:wrap; gap:9px; display:flex}
+.ice-actions a,.ice-actions button {color:#d3f5c1; cursor:pointer; background:#102017; border:1px solid #9fda76; padding:11px 13px; font:10px ui-monospace,monospace; text-decoration:none}
+.ice-actions button {color:#11200e; background:#b7f76a}
+.ice-note {color:#78937b; margin-top:17px; font-size:9px; line-height:1.6}
+.ice-trigger {text-align:left; width:100%; margin-top:14px}
+.ice-dialog[open] .ice-symbol {animation:2.8s ease-in-out infinite icePulse}
+@keyframes icePulse {50% {opacity:.65; text-shadow:0 0 35px #baff88}
+}
+/* WHITE ICE: shown when another site embeds this page in a frame. */
+html.whiteice-framed body:after {content:"WHITE ICE // EMBEDDED VIEW DETECTED // AUTOMATION HANDLES DISABLED"; z-index:30; color:#f3c193; letter-spacing:.12em; text-align:center; background:#2a1508; padding:6px 10px; font:10px ui-monospace,monospace; position:fixed; bottom:0; left:0; right:0}
+/* Desktop app float mode: a compact always-on-top window with the face and the input. */
+html.compact .topbar,html.compact .intro,html.compact .footer,html.compact .right,html.compact .avatar-top,html.compact .identity p,html.compact .field-label,html.compact .text-foot,html.compact .left>:not(.input-panel):not(.cortex-panel),html.compact .cortex-panel>:not(.cortex-actions) {display:none}
+html.compact .shell {padding:0}
+html.compact .workspace {border:0; flex-direction:column; min-height:100vh; display:flex}
+html.compact .col {padding:10px}
+html.compact .col+.col {border:0}
+html.compact .center {order:-1; padding-bottom:0}
+html.compact .avatar-stage {max-height:none}
+html.compact .identity {padding-top:8px}
+html.compact .identity h2 {font-size:17px}
+html.compact .signal-line {margin-top:8px; padding-top:8px}
+html.compact .input-panel {margin-top:0}
+html.compact textarea {resize:none; height:62px; padding:9px; font-size:12px}
+html.compact .actions {margin-top:6px}
+html.compact .notice {min-height:0; margin-top:6px}
+html.compact .cortex-panel {margin-top:6px}
+/* Floating window (Document Picture-in-Picture). */
+body.pip {color:#c8e4c5; min-height:0; font:11px ui-monospace,monospace}
+body.pip:before {content:none}
+.pip .wrap {padding:10px}
+.pip .top {letter-spacing:.14em; color:#b8ef8a; justify-content:space-between; padding:4px 2px 9px; display:flex}
+.pip .art {aspect-ratio:1; background:#030704; border:1px solid #38563b; width:100%; display:block}
+.pip textarea {resize:none; color:#e0efdb; background:#0b1710; border:1px solid #3c6041; outline:0; width:100%; height:70px; margin-top:8px; padding:8px; font:12px/1.4 ui-monospace,monospace}
+.pip textarea:focus {border-color:#a5ef7b}
+.pip .actions {gap:6px; margin-top:6px; display:flex}
+.pip button {letter-spacing:.07em; color:#cee8c4; cursor:pointer; background:#16271b; border:1px solid #46694a; padding:10px; font:700 10px ui-monospace,monospace}
+.pip button.go {color:#12200d; background:#b7f76a; border-color:#b7f76a; flex:1}
+.pip .status {color:#91ae96; margin:8px 0 0; font-size:9px; line-height:1.4}
+.pip .hint {color:#6f9076; margin-top:6px; font-size:9px}
+@media (prefers-reduced-motion:reduce) {.avatar-stage.speaking img,.avatar-stage.speaking:before,.avatar-stage.speaking.canvas-portrait canvas,.ice-dialog[open] .ice-symbol {animation:none}
+.avatar-stage[data-glitch=on].canvas-portrait canvas {filter:none}
+}

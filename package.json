@@ -1,0 +1,22 @@
+{
+  "name": "shodan-ai-voice",
+  "private": true,
+  "version": "5.0.0",
+  "description": "Fan-made SHODAN voice interface: local Piper Amy TTS, CORTEX random transmission generator, viseme lip sync, WHITE ICE hardening and a WebView2 desktop host.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "test": "node --test test/*.test.js",
+    "desktop:build": "npm run build && dotnet build desktop/ShodanDesktop.csproj -c Release",
+    "desktop:publish": "npm run build && dotnet publish desktop/ShodanDesktop.csproj -c Release -r win-x64 --self-contained false -o desktop/publish",
+    "desktop:smoke": "node scripts/desktop-smoke.mjs"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "devDependencies": {
+    "vite": "^8.3.7"
+  }
+}

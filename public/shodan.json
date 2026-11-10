@@ -1,0 +1,26 @@
+{
+  "app": "SHODAN Voice Interface",
+  "version": "5.0.0",
+  "defaults": {
+    "autoSpeak": false,
+    "autoSpeakDelayMs": 1000,
+    "idleEnabled": true,
+    "idleDelayMs": 60000,
+    "idleRepeatMs": 60000,
+    "externalQuoteChance": 0.2,
+    "generatedIdleChance": 0.5,
+    "smoothVoice": true,
+    "phaseDepth": -50,
+    "autoClear": true,
+    "characterTilt": -50,
+    "visualGlitch": 60,
+    "autonomousMinMs": 25000,
+    "autonomousMaxMs": 90000,
+    "reactions": true
+  },
+  "limits": {
+    "maxCharacters": 5000,
+    "chunkCharacters": 110
+  },
+  "notes": "Single bundled MycroftAI Mimic 3-derived Piper Amy medium voice; no second SHODAN voice model is included. Core model inference and DSP run locally in the browser after assets load. Baseline character tilt and bipolar 4.32 Hz phase output default to minus 50 percent; pitch glitch sweeps remain wide and audio slices can stutter. generatedIdleChance mixes CORTEX-generated lines into idle monologues; autonomousMinMs/autonomousMaxMs bound the random interval for autonomous transmissions; visualGlitch is the default avatar glitch strength in percent. Every value is clamped by WHITE ICE before use. Optional Discord Rich Presence requires the separate local service and Discord desktop; typed text is not shared with presence. Floating window and keyboard capture require focus. BLACK ICE is a fictional, harmless source-inspection-button demo."
+}

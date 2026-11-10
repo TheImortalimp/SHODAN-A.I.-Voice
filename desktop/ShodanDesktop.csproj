@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ShodanVoice</AssemblyName>
+    <RootNamespace>ShodanDesktop</RootNamespace>
+    <ApplicationIcon>shodan.ico</ApplicationIcon>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Version>5.0.0</Version>
+    <Product>SHODAN Voice Interface</Product>
+    <Description>WebView2 desktop host for the SHODAN Voice Interface, guarded by WHITE ICE file integrity and Microsoft Defender (AMSI) scanning.</Description>
+    <Copyright>Unofficial fan project. System Shock and SHODAN belong to their respective owners.</Copyright>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DistDir>$(MSBuildThisFileDirectory)..\dist\</DistDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
+  </ItemGroup>
+
+  <!-- The web build is copied next to the exe; its integrity manifest is compiled into the exe so
+       edits on disk cannot vouch for themselves. -->
+  <ItemGroup>
+    <EmbeddedResource Include="$(DistDir)white-ice.manifest.json" LogicalName="white-ice.manifest.json" />
+    <Content Include="$(DistDir)**\*" Exclude="$(DistDir)white-ice.manifest.json" LinkBase="app" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Target Name="RequireWebBuild" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(DistDir)white-ice.manifest.json')" Text="dist/white-ice.manifest.json is missing. Run 'npm run build' (or 'npm run desktop:build') first." />
+  </Target>
+
+  <!-- On .NET 5+ the WebView2 package also references its WPF control, which conflicts with the
+       WinForms WindowsBase reference (MSB3277). This host only uses the WinForms control. -->
+  <Target Name="DropWebView2Wpf" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Hashed asset names change on every web build; never leave stale files in a publish folder. -->
+  <Target Name="CleanPublishedApp" BeforeTargets="PrepareForPublish">
+    <RemoveDir Directories="$(PublishDir)app" />
+  </Target>
+
+</Project>

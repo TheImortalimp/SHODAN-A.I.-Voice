@@ -1,0 +1,7 @@
+node_modules/
+dist/
+desktop/bin/
+desktop/obj/
+desktop/publish/
+*.log
+.vite/
