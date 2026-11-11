@@ -49,9 +49,11 @@ test('sanitizeModel accepts model tags and rejects everything else', () => {
   assert.equal(sanitizeModel('<x>'), '');
 });
 
-test('LlmLink defaults to offline CORTEX and refuses remote endpoints', () => {
+test('LlmLink defaults to the merged flint:40b neural link but stays loopback-only', () => {
   const link = new LlmLink({ storage: memoryStorage() });
-  assert.equal(link.enabled, false);
+  assert.equal(link.enabled, true);
+  assert.equal(link.settings.engine, 'llm');
+  assert.equal(link.settings.model, 'flint:40b');
   assert.deepEqual(link.settings, DEFAULT_LLM_SETTINGS);
   assert.throws(() => link.configure({ endpoint: 'https://api.example.com/v1' }), /loopback/);
   assert.equal(link.settings.endpoint, DEFAULT_LLM_SETTINGS.endpoint);

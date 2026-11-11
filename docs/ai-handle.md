@@ -2,12 +2,12 @@
 
 The AI handle decides what SHODAN says when nobody scripted it. That keeps her unpredictable: she can write a line on demand, answer you, comment on what you do, interject on her own, and fill silences.
 
-The handle has two engines:
+The handle has two merged engines:
 
-- **CORTEX** is an offline generator. It is built into the app, needs no network, and is always available.
-- The **neural link** is optional. It sends requests to a language model running on your own computer.
+- **CORTEX** is an offline generator. It is built into the app, needs no network, and is always available. It is SHODAN's soul: it classifies your messages, keeps her memory and mood, and is the instant fallback.
+- The **neural link** is her default voice. It sends requests to the `flint:40b` language model running on your own computer and writes her conversation and monologues; CORTEX steers it with the chosen mood, topic and memory.
 
-When the neural link is enabled, the handle tries it first and falls back to CORTEX on any failure. Only one link request runs at a time; while one is in flight, CORTEX answers anything else.
+When the neural link is reachable, the handle tries it first and falls back to CORTEX on any failure. Only one link request runs at a time; while one is in flight, CORTEX answers anything else. Set `?engine=cortex` (or switch GENERATION ENGINE to CORTEX) to run fully offline.
 
 ## CORTEX
 
@@ -176,7 +176,7 @@ The neural link sends generation requests to an OpenAI-compatible server on your
 
    | Server | Endpoint to enter | Notes |
    | --- | --- | --- |
-   | [Ollama](https://ollama.com/) | `http://localhost:11434/v1` (the default) | Pull a model, for example `ollama pull llama3.2`. Allow the page's origin (see below). |
+   | [Ollama](https://ollama.com/) | `http://localhost:11434/v1` (the default) | Pull the default model with `ollama pull flint:40b` (or run `scripts/install-flint.ps1`). Allow the page's origin (see below). |
    | [LM Studio](https://lmstudio.ai/) | `http://localhost:1234/v1` | Start the local server and enable CORS in its settings. |
    | llama.cpp `llama-server` | `http://localhost:8080/v1` | The server must allow cross-origin requests from the page. |
 

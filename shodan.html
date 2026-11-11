@@ -117,23 +117,23 @@
 <label class="auto"><input id="reactions" type="checkbox" role="switch" checked> REACTIVE COMMENTARY</label>
 <p class="help">She comments on what you do: fullscreen, floating mode, pasting, interrupting her, coming back after a while.</p>
 <details class="presence-settings link-settings" id="linkSettings">
-<summary>◈ &nbsp; NEURAL LINK / OPTIONAL LOCAL LLM</summary>
-<p class="help">CORTEX writes original lines on this device with no network access. Optionally route generation through a local OpenAI-compatible server (Ollama, LM Studio, llama.cpp). WHITE ICE only accepts localhost / 127.0.0.1 endpoints; on any failure SHODAN falls back to CORTEX.</p>
+<summary>◈ &nbsp; NEURAL LINK / FLINT:40B + CORTEX</summary>
+<p class="help">SHODAN is merged: the <span class="kbd">flint:40b</span> neural link writes her conversation and monologues through a local OpenAI-compatible server (Ollama, LM Studio, llama.cpp), while CORTEX stays underneath as her soul, memory and instant fallback. WHITE ICE only accepts localhost / 127.0.0.1 endpoints; on any failure or timeout SHODAN drops straight back to CORTEX with no network access.</p>
 <label for="engine">GENERATION ENGINE
 <select id="engine">
+<option value="llm">NEURAL LINK / FLINT:40B (MERGED)</option>
 <option value="cortex">CORTEX / OFFLINE GRAMMAR</option>
-<option value="llm">NEURAL LINK / LOCAL LLM</option>
 </select>
 </label>
 <label for="endpoint">ENDPOINT<input id="endpoint" type="url" autocomplete="off" spellcheck="false" maxlength="200" placeholder="http://localhost:11434/v1"></label>
-<label for="model">MODEL<input id="model" type="text" list="modelList" autocomplete="off" spellcheck="false" maxlength="128" placeholder="e.g. llama3.2"></label>
-<datalist id="modelList"></datalist>
+<label for="model">MODEL<input id="model" type="text" list="modelList" autocomplete="off" spellcheck="false" maxlength="128" placeholder="flint:40b"></label>
+<datalist id="modelList"><option value="flint:40b"></option></datalist>
 <label for="apiKey">API KEY / OPTIONAL / MEMORY ONLY<input id="apiKey" type="password" autocomplete="off" spellcheck="false" maxlength="256" placeholder="Not stored"></label>
 <div class="presence-actions">
 <button class="secondary" id="testLink" type="button">TEST LINK</button>
 </div>
 <p class="presence-status" id="linkStatus" role="status" aria-live="polite">Neural link idle. CORTEX active.</p>
-<p class="help">Ollama: allow this page's origin first, e.g. set <span class="kbd">OLLAMA_ORIGINS</span> to <span class="kbd">https://www.imortalimp.nl,https://shodan-voice.example</span> and restart Ollama. The API key stays in memory and is never saved.</p>
+<p class="help">Install the model once with <span class="kbd">ollama pull flint:40b</span>, then allow this page's origin: set <span class="kbd">OLLAMA_ORIGINS</span> to <span class="kbd">https://www.imortalimp.nl,https://kmr.shodan</span> and restart Ollama. The API key stays in memory and is never saved.</p>
 </details>
 </div>
 <hr class="rule">

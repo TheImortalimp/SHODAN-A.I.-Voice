@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <!-- .NET 8 support ends in November 2026; let the exe run on any newer installed runtime. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <!-- Targets the current .NET LTS (.NET 8 reached end of support in November 2026);
+         roll-forward keeps the exe running on any newer installed runtime. -->
     <RollForward>Major</RollForward>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>

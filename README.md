@@ -93,11 +93,12 @@ URL parameters:
 | `?autonomous=1` | Start with autonomous transmissions on. |
 | `?engine=cortex` | Force the offline CORTEX engine even if the neural link is enabled. |
 
-### Optional neural link (local LLM)
+### Neural link (flint:40b + CORTEX)
 
-CORTEX always works offline. You can also connect SHODAN to a **local** OpenAI-compatible server, such as Ollama, LM Studio or a llama.cpp server. CORTEX takes over whenever the link fails, times out or returns something unusable.
+SHODAN ships **merged**: the `flint:40b` local LLM is her default conversational and monologue voice, and CORTEX stays underneath as her soul, memory and instant fallback. CORTEX takes over whenever the link fails, times out or returns something unusable, so SHODAN always works offline. You can point the link at any **local** OpenAI-compatible server (Ollama, LM Studio or a llama.cpp server).
 
-- WHITE ICE only allows loopback endpoints (`localhost` and `127.0.0.1`), so text never leaves your computer. The default endpoint is `http://localhost:11434/v1` (Ollama).
+- Provision flint once with the bundled helper: `pwsh -File scripts/install-flint.ps1` (checks Ollama, runs `ollama pull flint:40b`, and allows the SHODAN page origin in `OLLAMA_ORIGINS`). Or do it by hand with `ollama pull flint:40b`.
+- WHITE ICE only allows loopback endpoints (`localhost` and `127.0.0.1`), so text never leaves your computer. The default endpoint is `http://localhost:11434/v1` (Ollama) and the default model is `flint:40b`.
 - The link is off by default. Turn it on in the AI handle panel.
 - An API key, if your server needs one, is kept in memory only and never stored.
 - Your text is passed to the model as clearly marked untrusted input, and replies are sanitised and length-limited before SHODAN speaks them.
@@ -172,7 +173,7 @@ Upload the **contents** of `dist/`, or of the release's web zip, to a folder on 
 
 ## Desktop app (WebView2)
 
-Requirements: Windows 10 or 11 (x64), the [.NET Desktop Runtime](https://dotnet.microsoft.com/download/dotnet) 8 or later, and the [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which is preinstalled on Windows 11. The app targets .NET 8 and also runs on newer versions, such as .NET 10. Building it needs the .NET SDK 8 or later.
+Requirements: Windows 10 or 11 (x64), the [.NET Desktop Runtime](https://dotnet.microsoft.com/download/dotnet) 10 or later, and the [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which is preinstalled on Windows 11. The app targets .NET 10 (the current LTS) and rolls forward to newer installed runtimes. Building it needs the .NET SDK 10 or later.
 
 ```sh
 npm run desktop:publish   # web build + desktop/publish/ShodanVoice.exe (with its app/ folder)
@@ -202,7 +203,7 @@ To use it, run `desktop/publish/ShodanVoice.exe`; to distribute it, ship the who
 | `public/` | Voice pack, WebAssembly runtimes, fallback voice, monologues, icons, config (`shodan.json`) |
 | `tools/vite-plugins.js` | Build plugins: embedded avatar, monologue snapshot, CSP, readable sources, integrity manifest |
 | `test/` | `node --test` unit tests |
-| `desktop/` | WebView2 desktop host (C#, .NET 8 WinForms); see [desktop/README.md](./desktop/README.md) |
+| `desktop/` | WebView2 desktop host (C#, .NET 10 WinForms); see [desktop/README.md](./desktop/README.md) |
 | `scripts/desktop-smoke.mjs` | Desktop end-to-end smoke test |
 | `docs/` | The [documentation](./docs/README.md) |
 | `CHANGELOG.md` | Release history |

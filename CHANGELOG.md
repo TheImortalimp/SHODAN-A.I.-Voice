@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [semantic versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **Merged flint:40b brain.** The neural link now defaults on with the `flint:40b` model, making it SHODAN's default conversational and monologue voice. CORTEX stays underneath as her soul, memory and instant fallback, and still steers the link with the chosen mood, topic and memory. The default endpoint remains loopback-only Ollama (`http://localhost:11434/v1`).
+- **.NET 10.** The WebView2 desktop host targets the current .NET LTS (.NET 8 reached end of support in November 2026).
+
+### Added
+
+- `scripts/install-flint.ps1`: provisions the model (`ollama pull flint:40b`) and allows the SHODAN page origins in `OLLAMA_ORIGINS`.
+
 ## [0.0.1] - 2026-11-10
 
 The first tagged release, and the final release of this repository, which is now archived.
