@@ -1,10 +1,13 @@
 import { joinEndpoint, validateEndpoint } from '../whiteice/endpoint.js';
 import { cleanText } from '../whiteice/sanitize.js';
 
-// Optional neural link to a local OpenAI-compatible server (Ollama, LM Studio, llama.cpp…).
+// Neural link to a local OpenAI-compatible server (Ollama, LM Studio, llama.cpp…).
 // WHITE ICE restricts it to loopback hosts; on any failure the caller falls back to CORTEX.
+// SHODAN ships merged: the flint:40b neural link is the default voice for both conversation
+// and monologue, and CORTEX stays underneath as her soul, memory and instant fallback.
 export const LLM_STORAGE_KEY = 'shodan.cortex.v1';
-export const DEFAULT_LLM_SETTINGS = Object.freeze({ engine: 'cortex', endpoint: 'http://localhost:11434/v1', model: '' });
+export const DEFAULT_LLM_MODEL = 'flint:40b';
+export const DEFAULT_LLM_SETTINGS = Object.freeze({ engine: 'llm', endpoint: 'http://localhost:11434/v1', model: DEFAULT_LLM_MODEL });
 export const LLM_LIMITS = Object.freeze({ timeoutMs: 20000, maxResponseBytes: 64 * 1024, maxReply: 420, history: 12 });
 
 export const PERSONA_PROMPT = [
